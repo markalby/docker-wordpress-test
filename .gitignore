@@ -5,35 +5,38 @@
 #
 # Note: if you want to stage/commit WP core files
 # you can delete this whole section/until Configuration.
-/wp-admin/
-/wp-content/index.php
-/wp-content/languages
-/wp-content/plugins/index.php
-/wp-content/themes/index.php
-/wp-includes/
-/index.php
-/license.txt
-/readme.html
-/wp-*.php
-/xmlrpc.php
+/wp-site-content/wp-admin/
+/wp-site-content/wp-content/index.php
+/wp-site-content/wp-content/languages
+/wp-site-content/wp-content/plugins/index.php
+/wp-site-content/wp-content/themes/index.php
+/wp-site-content/wp-includes/
+/wp-site-content/index.php
+/wp-site-content/license.txt
+/wp-site-content/readme.html
+/wp-site-content/wp-*.php
+/wp-site-content/xmlrpc.php
 
 # Configuration
-wp-config.php
+/wp-site-content/wp-config.php
 
 # Example themes
-/wp-content/themes/twenty*/
+/wp-site-content/wp-content/themes/twenty*/
 
 # Example plugin
-/wp-content/plugins/hello.php
+/wp-site-content/wp-content/plugins/hello.php
 
 # Uploads
-/wp-content/uploads/
+/wp-site-content/wp-content/uploads/
 
 # Log files
-*.log
+/wp-site-content/*.log
 
 # htaccess
-/.htaccess
+/wp-site-content/.htaccess
+
+# default akismet
+/wp-site-content/wp-content/plugins/akismet
 
 # All plugins
 #
@@ -42,7 +45,10 @@ wp-config.php
 #/wp-content/plugins
 
 # All themes
-#
-# Note: If you wish to whitelist themes,
-# uncomment the next line
 #/wp-content/themes
+
+# database
+mysql-data
+
+# actual docker compose
+docker-compose.yml

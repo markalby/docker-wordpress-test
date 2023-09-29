@@ -1,0 +1,60 @@
+# Wordpress docker compose file for arm mac machine.
+
+# references:
+
+# syncing with bind mounts:
+# https://stackoverflow.com/a/51268480
+# https://docs.docker.com/storage/bind-mounts/
+
+# set-up on arm machine:
+# https://www.youtube.com/watch?v=l3OmwuaxEFE
+
+# general set-up:
+# https://hub.docker.com/_/wordpress
+# https://www.virtono.com/community/tutorial-how-to/how-to-install-wordpress-using-docker-compose/
+
+version: '3.2'
+
+services:
+
+  db:
+    # specifying *not* arm for the platform seems really dumb but according to
+    # the yt vid it doesn't work unless you do this. I did not test that though
+    # and blindly took the advice
+    platform: linux/x86_64
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ur_db_name
+      MYSQL_USER: ur_user
+      MYSQL_PASSWORD: ur_pass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  wordpress:
+    links:
+      - db:mysql
+    image: wordpress:latest
+    restart: unless-stopped
+    ports:
+      - 8008:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: ur_user
+      WORDPRESS_DB_PASSWORD: ur_pass
+      WORDPRESS_DB_NAME: ur_db_name
+    volumes:
+      - wordpress:/var/www/html
+      # * bind mount- syncing data between local folder and container folder
+      # * or maybe just using local folder data? not sure what docker is doing.
+      # same difference for this use case.
+      # * then be sure to git ignore stuff you don't want tracked in git. just
+      # commit child theme files.
+      - type: bind
+        source: ./wp-site-content
+        target: /var/www/html/
+
+volumes:
+  wordpress:
+  db:
