@@ -52,3 +52,4 @@ mysql-data
 
 # actual docker compose
 docker-compose.yml
+wp-site-content/wp-content/plugins/carbon-fields

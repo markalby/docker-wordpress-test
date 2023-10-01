@@ -18,16 +18,16 @@ version: '3.2'
 services:
 
   db:
-    # specifying *not* arm for the platform seems really dumb but according to
-    # the yt vid it doesn't work unless you do this. I did not test that though
-    # and blindly took the advice
+    # specifying *not* arm for the platform seems counterintuitive but according to
+    # the youtube video it doesn't work unless you do this. I did not test that though
+    # and blindly took the advice.
     platform: linux/x86_64
     image: mysql:5.7
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ur_db_name
-      MYSQL_USER: ur_user
-      MYSQL_PASSWORD: ur_pass
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_DATABASE: db_namebin
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - ./mysql-data:/var/lib/mysql
@@ -41,19 +41,17 @@ services:
       - 8008:80
     environment:
       WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: ur_user
-      WORDPRESS_DB_PASSWORD: ur_pass
-      WORDPRESS_DB_NAME: ur_db_name
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: pass
+      WORDPRESS_DB_NAME: db_name
     volumes:
       - wordpress:/var/www/html
       # * bind mount- syncing data between local folder and container folder
-      # * or maybe just using local folder data? not sure what docker is doing.
-      # same difference for this use case.
-      # * then be sure to git ignore stuff you don't want tracked in git. just
-      # commit child theme files.
+      # * or maybe just using local folder data and not having a counter part in the 
+      # container? not sure what docker is doing.
       - type: bind
         source: ./wp-site-content
-        target: /var/www/html/
+        target: /var/www/html/ # this is where the wordpress site is in the container
 
 volumes:
   wordpress:
