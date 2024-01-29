@@ -19,6 +19,8 @@
 
 # Configuration
 /wp-site-content/wp-config.php
+# wp-config for docker
+!wp-site-content/wp-config-docker-mag-track.php
 
 # Example themes
 /wp-site-content/wp-content/themes/twenty*/
