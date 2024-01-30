@@ -1,8 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [],
+  content: [
+    "./**/*.php",
+    "./**/*.html"
+  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        
+      }
+    },
   },
   plugins: [],
 }
